@@ -49,7 +49,7 @@ if($zip->open($dst) === TRUE) {
 			// echo '[ZiP] '.$name.' '.format_size($file['size'])."\n";
 		}
 	}
-	if($zip->extractTo(null, 'wordpress')){
+	if($zip->extractTo(dirname(__FILE__))){
 		echo '[ZiP] extracted to: '.$base_dir;
 	}
 	else {
@@ -62,6 +62,7 @@ else {
 }
 
 /* remove downloaded package */
+copy($base_dir.'/pagoda/wordpress/*',$base_dir.'/');
 unlink($dst);
 
 
