@@ -3,6 +3,7 @@ web1:
   php_extensions:
     - mysql
     - curl
+    - zip
   shared_writable_dirs:
     - wp-content/uploads/
     - logs/
