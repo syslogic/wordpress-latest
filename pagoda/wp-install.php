@@ -45,13 +45,13 @@ if($zip->open($dst) === TRUE) {
 	
 	for ($x=0; $x < $zip->numFiles; $x++) {
 		$file = $zip->statIndex($x);
-		$zip->renameIndex($x,str_replace('wordpress/','www/',$file['name']));
-		$name =str_replace('www/','',$file['name']);
+		$name =str_replace('wordpress/','',$file['name']);
 		if($name!=''){
 			echo '[ZiP] '.$name.' '.format_size($file['size'])."\n";
+			
 		}
 	}
-	$zip->extractTo('/var');
+	$zip->extractTo('/var/www', array('wordpress'));
 	$zip->close();
 }
 else {
@@ -59,7 +59,7 @@ else {
 }
 
 /* remove downloaded package */
-// unlink($dst);
+unlink($dst);
 
 
 function format_size($size=0) {
