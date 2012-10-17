@@ -12,6 +12,6 @@ web1:
     - "mv pagoda/wp-config.php wp-config.php"
     - "rm pagoda/wp-install.php"
     - "rm pagoda/wp-latest.zip"
-    - "rm pagoda/wordpress"
+    - "rm -R pagoda/wordpress"
 db1:
   name: wp-db
