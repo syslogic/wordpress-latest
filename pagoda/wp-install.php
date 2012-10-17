@@ -39,7 +39,7 @@ if($zip->open($dst) === TRUE) {
 /* retrieve version number */
 if(file_exists(dirname(__FILE__).'/wordpress/wp-includes/version.php')){
 	require_once(dirname(__FILE__).'/wordpress/wp-includes/version.php');
-	echo '[iNFO] WordPress v'.$wp_version.' will be deployed.';
+	echo '[iNFO] WordPress v'.$wp_version.' will be deployed & configured.';
 }
 
 function format_size($size=0) {
