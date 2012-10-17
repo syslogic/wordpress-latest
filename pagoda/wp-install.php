@@ -35,7 +35,7 @@ if(!file_exists($dst)){
 
 /* cURL stats */
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
-echo "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024),2)."mbit/s.\n";
+echo "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024/1024),2)."GBit/s.\n";
 echo "[cURL] saved file to ".$dst.".\n";
 
 $zip = new ZipArchive;
