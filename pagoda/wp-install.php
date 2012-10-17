@@ -7,9 +7,9 @@
 
 /* the environment */
 $fn='latest.zip';
-$base_dir = str_replace('/pagoda','', dirname(__FILE__));
+$base_dir = str_replace('pagoda','', dirname(__FILE__));
 $src='http://wordpress.org/'.$fn;
-$dst=$base_dir.'/pagoda/wp-'.$fn;
+$dst=$base_dir.'pagoda/wp-'.$fn;
 
 /* fetch the package */
 if(file_exists($dst)){unlink($dst);}
@@ -47,7 +47,7 @@ if($zip->open($dst) === TRUE) {
 		$name =str_replace('wordpress/','',$file['name']);
 		if($name!=''){
 			echo '[ZiP] '.$name.' '.format_size($file['size'])."\n";
-			echo $zip->extractTo($base_dir.'/'.$name, 'wordpress/'.$file['name']);
+			$zip->extractTo($base_dir.$name, $file['name']);
 		}
 	}
 	
