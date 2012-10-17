@@ -6,10 +6,10 @@ web1:
     - zip
   shared_writable_dirs:
     - wp-content/uploads/
-    - logs/
   after_build:
     - "php pagoda/wp-install.php"
     - "rm pagoda/wp-install.php"
     - "mv pagoda/wp-config.php wp-config.php"
+    - "mv pagoda/wordpress ./"
 db1:
   name: wp-db
