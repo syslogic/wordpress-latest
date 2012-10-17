@@ -10,10 +10,19 @@ $base_dir = str_replace('/pagoda','', dirname(__FILE__));
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_NOTICE);
 
+$logfile=$base_dir.'/logs/deployment.log';
+if(!file_exists($logfile)){touch($logfile);}
+function pagoda_error_handler($errno, $errstr, $filename, $line) {
+	global $logfile;
+	$entry = date('[Y-m-d H:i:s]').'[#'.$errno.' > '.$filename.' @ '.$line.']'.$errstr."\n";
+	file_put_contents($logfile, $entry, FILE_APPEND);
+}
+set_error_handler('pagoda_error_handler');
+
 /* the environment */
 $fn='latest.zip';
 $src='http://wordpress.org/'.$fn;
-$dst=$base_dir.'/pagoda/'.$fn;
+$dst=$base_dir.'/pagoda/wp-'.$fn;
 
 /* download the latest WordPress package */
 if(file_exists($dst)){unlink($dst);}
@@ -40,7 +49,7 @@ if(!file_exists($dst)){
 
 /* cURL stats */
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
-echo "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024/1024),2)."GBps.\n";
+echo "[cURL] fetched '$src' @ ".round(($info['size_download']*8/$time/1024/1024/1024),2)."GBps.\n";
 echo "[cURL] saved file to ".$dst.".\n";
 
 $zip = new ZipArchive;
