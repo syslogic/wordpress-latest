@@ -49,7 +49,7 @@ if($zip->open($dst) === TRUE) {
 			// echo '[ZiP] '.$name.' '.format_size($file['size'])."\n";
 		}
 	}
-	if($zip->extractTo('/', 'wordpress')){
+	if($zip->extractTo(null, 'wordpress')){
 		echo '[ZiP] extracted to: '.$base_dir;
 	}
 	else {
