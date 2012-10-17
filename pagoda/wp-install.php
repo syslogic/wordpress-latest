@@ -51,7 +51,7 @@ if($zip->open($dst) === TRUE) {
 			
 		}
 	}
-	$zip->extractTo('/var/www', array('wordpress'));
+	$zip->extractTo('/var/www/', 'wordpress');
 	$zip->close();
 }
 else {
