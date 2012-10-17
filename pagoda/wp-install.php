@@ -5,21 +5,10 @@
 	http://codefx.biz/contact
 */
 $base_dir = str_replace('pagoda','', dirname(__FILE__));
-$logfile = '/var/www/logs/deployment.log';
-if(!file_exists($logfile)){touch($logfile);}
 
 /* error reporting */
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_NOTICE);
-
-/* custom error handler */
-function pagoda_error_handler($errno, $errstr, $filename, $line) {
-	global $logfile;
-	if(!file_exists($logfile)){touch($logfile);}
-	$entry = date('[Y-m-d H:i:s]').'[#'.$errno.' > '.$filename.' @ '.$line.']'.$errstr."\n";
-	file_put_contents($logfile, $entry, FILE_APPEND);
-}
-set_error_handler('pagoda_error_handler');
 
 /* the environment */
 $fn='latest.zip';
@@ -44,13 +33,10 @@ if(!file_exists($dst)){
 	die('file not found: '.$dst);
 }
 
+/* cURL stats */
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
-$entry = "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024),2)."mbit/s.\n";
-file_put_contents($logfile, $entry, FILE_APPEND);
-echo $entry."\n";
-$entry = "[cURL] saved file to ".$dst.".\n";
-file_put_contents($logfile, $entry, FILE_APPEND);
-echo $entry."\n";
+echo "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024),2)."mbit/s.\n";
+echo "[cURL] saved file to ".$dst.".\n";
 
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
