@@ -44,8 +44,11 @@ if($zip->open($dst) === TRUE) {
 	echo '[ZiP] archive opened: '.$dst;
 	for ($x=0; $x < $zip->numFiles; $x++) {
 		$file = $zip->statIndex($x);
-		echo '[ZiP] '.$file['name'].' '.format_size($file['size']);
-		echo $zip->extractTo($base_dir, str_replace('wordpress/','',$file['name']));
+		$name =str_replace('wordpress/','',$file['name'];
+		if($name!=''){
+			echo '[ZiP] '.$file['name'].' '.format_size($file['size'])."\n";
+			echo $zip->extractTo($base_dir, 'wordpress/'.$file['name']);
+		}
 	}
 	
 	// $zip->extractTo($base_dir, 'wordpress');
