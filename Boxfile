@@ -10,6 +10,6 @@ web1:
     - "php pagoda/wp-install.php"
     - "rm pagoda/wp-install.php"
     - "mv pagoda/wp-config.php wp-config.php"
-    - "mv pagoda/wordpress ./"
+    - "mv pagoda/wordpress/* ./"
 db1:
   name: wp-db
