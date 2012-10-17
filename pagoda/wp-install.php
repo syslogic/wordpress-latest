@@ -29,11 +29,14 @@ fclose($fp);
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
 echo "[cURL] fetched '$src' @ ".abs(round(($info['size_download']*8/$time/1024/1024/1024),2))."GBps.\n";
 
+/* unzip the package */
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
 	$zip->extractTo(dirname(__FILE__));
 	$zip->close();
 }
+
+/* retrieve version number */
 if(file_exists(dirname(__FILE__).'/wordpress/wp-includes/version.php')){
 	require_once(dirname(__FILE__).'/wordpress/wp-includes/version.php');
 	echo '[iNFO] WordPress v'.$wp_version.' will be deployed.';
