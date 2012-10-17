@@ -4,27 +4,14 @@
 	Copyright 2012 by Martin Zeitler
 	http://codefx.biz/contact
 */
-$base_dir = str_replace('/pagoda','', dirname(__FILE__));
-
-/* error reporting */
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_NOTICE);
-
-$logfile=$base_dir.'/logs/deployment.log';
-if(!file_exists($logfile)){touch($logfile);}
-function pagoda_error_handler($errno, $errstr, $filename, $line) {
-	global $logfile;
-	$entry = date('[Y-m-d H:i:s]').'[#'.$errno.' > '.$filename.' @ '.$line.']'.$errstr."\n";
-	file_put_contents($logfile, $entry, FILE_APPEND);
-}
-set_error_handler('pagoda_error_handler');
 
 /* the environment */
 $fn='latest.zip';
+$base_dir = str_replace('/pagoda','', dirname(__FILE__));
 $src='http://wordpress.org/'.$fn;
 $dst=$base_dir.'/pagoda/wp-'.$fn;
 
-/* download the latest WordPress package */
+/* fetch the package */
 if(file_exists($dst)){unlink($dst);}
 $fp = fopen($dst, 'w');
 $curl = curl_init();
@@ -55,6 +42,11 @@ echo "[cURL] saved file to ".$dst.".\n";
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
 	echo '[Zip] archive opened: '.$dst;
+	for ($x=0; $x < $zip->numFiles; $x++) {
+		$file = $zip->statIndex($x);
+		printf("%s (%d bytes)", $file['name'], $file['size']);
+	}
+	
 	$zip->extractTo($base_dir, 'wordpress');
 	$zip->close();
 }
