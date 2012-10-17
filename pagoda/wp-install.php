@@ -13,7 +13,7 @@ error_reporting(E_ALL | E_NOTICE);
 /* the environment */
 $fn='latest.zip';
 $src='http://wordpress.org/'.$fn;
-$dst='/var/www/pagodabox/'.$fn;
+$dst=$base_dir.$fn;
 
 /* download the latest WordPress package */
 if(file_exists($dst)){unlink($dst);}
