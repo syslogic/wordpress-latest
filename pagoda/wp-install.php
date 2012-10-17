@@ -15,12 +15,7 @@ $dst=$base_dir.'/pagoda/wp-'.$fn;
 if(file_exists($dst)){unlink($dst);}
 $fp = fopen($dst, 'w');
 $curl = curl_init();
-$opt = array(
-	CURLOPT_USERAGENT => 'WordPress Installer for Pagoda Box',
-	CURLOPT_URL => $src,
-	CURLOPT_HEADER => false,
-	CURLOPT_FILE => $fp
-);
+$opt = array(CURLOPT_URL => $src, CURLOPT_HEADER => false, CURLOPT_FILE => $fp);
 curl_setopt_array($curl, $opt);
 $rsp = curl_exec($curl);
 if($rsp===false){
@@ -30,27 +25,16 @@ $info = curl_getinfo($curl);
 curl_close($curl);
 fclose($fp);
 
-if(!file_exists($dst)){
-	die('file not found: '.$dst);
-}
-
 /* cURL stats */
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
 echo "[cURL] fetched '$src' @ ".abs(round(($info['size_download']*8/$time/1024/1024/1024),2))."GBps.\n";
 
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
-	echo '[ZiP] archive opened: '.$dst;
 	if($zip->extractTo(dirname(__FILE__))){
-		echo '[ZiP] extracted to: '.dirname(__FILE__);
-	}
-	else {
-		echo '[ZiP] extraction failed: '.dirname(__FILE__);
+		echo '[ZiP] '.$fn.' extracted to: '.dirname(__FILE__).'/wordpress';
 	}
 	$zip->close();
-}
-else {
-	echo '[Zip] archive could not be opened: '.$dst;
 }
 
 function format_size($size=0) {
