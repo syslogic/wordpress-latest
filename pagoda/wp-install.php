@@ -41,13 +41,14 @@ echo "[cURL] saved file to ".$dst.".\n";
 
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
-	echo '[Zip] archive opened: '.$dst;
+	echo '[ZiP] archive opened: '.$dst;
 	for ($x=0; $x < $zip->numFiles; $x++) {
 		$file = $zip->statIndex($x);
-		printf("%s (%d bytes)", $file['name'], $file['size']);
+		echo '[ZiP] '.$file['name'].' '.format_size($file['size']);
+		echo $zip->extractTo($base_dir, str_replace('wordpress/','',$file['name']));
 	}
 	
-	$zip->extractTo($base_dir, 'wordpress');
+	// $zip->extractTo($base_dir, 'wordpress');
 	$zip->close();
 }
 else {
