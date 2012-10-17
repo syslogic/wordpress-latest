@@ -44,14 +44,13 @@ if(file_exists(dirname(__FILE__).'/wordpress/wp-includes/version.php')){
 
 function format_size($size=0) {
 	if($size < 1024){
-		$f=$size."b";
+		return $size.'b';
 	}
 	elseif($size < 1048576){
-		$f=round($size/1024,2)."kb";
+		return round($size/1024,2).'kb';
 	}
 	else {
-		$f=round($size/1048576,2)."mb";
+		return round($size/1048576,2).'mb';
 	}
-	return $f;
 }
 ?>
