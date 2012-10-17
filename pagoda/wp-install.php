@@ -4,7 +4,7 @@
 	Copyright 2012 by Martin Zeitler
 	http://codefx.biz/contact
 */
-$base_dir = str_replace('pagoda','', dirname(__FILE__));
+$base_dir = str_replace('/pagoda','', dirname(__FILE__));
 
 /* error reporting */
 ini_set('display_errors', 'On');
@@ -13,7 +13,7 @@ error_reporting(E_ALL | E_NOTICE);
 /* the environment */
 $fn='latest.zip';
 $src='http://wordpress.org/'.$fn;
-$dst='pagoda/'.$fn;
+$dst=$base_dir.'/pagoda/'.$fn;
 
 /* download the latest WordPress package */
 if(file_exists($dst)){unlink($dst);}
@@ -49,7 +49,7 @@ if($zip->open($dst) === TRUE) {
 	$zip->close();
 }
 else {
-	die('ZipOpen has failed.');
+	echo '[Zip] file open has failed: '.$dst;
 }
 
 /* remove downloaded package */
