@@ -46,8 +46,8 @@ if($zip->open($dst) === TRUE) {
 		$file = $zip->statIndex($x);
 		$name =str_replace('wordpress/','',$file['name']);
 		if($name!=''){
-			echo '[ZiP] '.$file['name'].' '.format_size($file['size'])."\n";
-			echo $zip->extractTo($base_dir, 'wordpress/'.$file['name']);
+			echo '[ZiP] '.$name.' '.format_size($file['size'])."\n";
+			echo $zip->extractTo($base_dir.'/'.$name, 'wordpress/'.$file['name']);
 		}
 	}
 	
