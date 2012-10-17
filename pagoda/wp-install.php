@@ -36,6 +36,10 @@ if($zip->open($dst) === TRUE) {
 	}
 	$zip->close();
 }
+if(file_exists(dirname(__FILE__).'/wordpress/wp-includes/version.php')){
+	require_once(dirname(__FILE__).'/wordpress/wp-includes/version.php');
+	echo '[WP] WordPress '.$wp_version.' will be deployed.';
+}
 
 function format_size($size=0) {
 	if($size < 1024){
