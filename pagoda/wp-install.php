@@ -37,7 +37,6 @@ if(!file_exists($dst)){
 /* cURL stats */
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
 echo "[cURL] fetched '$src' @ ".abs(round(($info['size_download']*8/$time/1024/1024/1024),2))."GBps.\n";
-echo "[cURL] saved file to ".$dst.".\n";
 
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
