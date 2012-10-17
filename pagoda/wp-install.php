@@ -1,6 +1,6 @@
 <?php
 /*
-	WordPress Latest for PagodaBox v1.05
+	WordPress Installer for PagodaBox v1.05
 	Copyright 2012 by Martin Zeitler
 	http://codefx.biz/contact
 */
@@ -19,7 +19,12 @@ $dst='pagoda/'.$fn;
 if(file_exists($dst)){unlink($dst);}
 $fp = fopen($dst, 'w');
 $curl = curl_init();
-$opt = array(CURLOPT_URL => $src, CURLOPT_HEADER => false,CURLOPT_FILE => $fp, CURLOPT_USERAGENT => 'BoxScripts for PagodaBox');
+$opt = array(
+	CURLOPT_USERAGENT => 'WordPress Installer for PagodaBox',
+	CURLOPT_URL => $src,
+	CURLOPT_HEADER => false,
+	CURLOPT_FILE => $fp
+);
 curl_setopt_array($curl, $opt);
 $rsp = curl_exec($curl);
 if($rsp===false){
@@ -35,7 +40,7 @@ if(!file_exists($dst)){
 
 /* cURL stats */
 $time = $info['total_time']-$info['namelookup_time']-$info['connect_time']-$info['pretransfer_time']-$info['starttransfer_time']-$info['redirect_time'];
-echo "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024/1024),2)."GBit/s.\n";
+echo "[cURL] retrieved package '$src' @ ".round(($info['size_download']*8/$time/1024/1024/1024),2)."GBps.\n";
 echo "[cURL] saved file to ".$dst.".\n";
 
 $zip = new ZipArchive;
@@ -48,7 +53,7 @@ else {
 }
 
 /* remove downloaded package */
-unlink($dst);
+// unlink($dst);
 
 
 function format_size($size=0) {
