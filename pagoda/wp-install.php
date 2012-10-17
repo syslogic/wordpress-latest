@@ -31,9 +31,7 @@ echo "[cURL] fetched '$src' @ ".abs(round(($info['size_download']*8/$time/1024/1
 
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
-	if($zip->extractTo(dirname(__FILE__))){
-		echo '[ZiP] '.$fn.' extracted to: '.dirname(__FILE__).'/wordpress';
-	}
+	$zip->extractTo(dirname(__FILE__));
 	$zip->close();
 }
 if(file_exists(dirname(__FILE__).'/wordpress/wp-includes/version.php')){
