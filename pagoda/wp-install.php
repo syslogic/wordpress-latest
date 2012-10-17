@@ -41,30 +41,17 @@ echo "[cURL] fetched '$src' @ ".abs(round(($info['size_download']*8/$time/1024/1
 $zip = new ZipArchive;
 if($zip->open($dst) === TRUE) {
 	echo '[ZiP] archive opened: '.$dst;
-	
-	for ($x=0; $x < $zip->numFiles; $x++) {
-		$file = $zip->statIndex($x);
-		$name =str_replace('wordpress/','',$file['name']);
-		if($name!=''){
-			// echo '[ZiP] '.$name.' '.format_size($file['size'])."\n";
-		}
-	}
 	if($zip->extractTo(dirname(__FILE__))){
-		echo '[ZiP] extracted to: '.$base_dir;
+		echo '[ZiP] extracted to: '.dirname(__FILE__);
 	}
 	else {
-		echo '[ZiP] extraction failed: '.$base_dir;
+		echo '[ZiP] extraction failed: '.dirname(__FILE__);
 	}
 	$zip->close();
 }
 else {
 	echo '[Zip] archive could not be opened: '.$dst;
 }
-
-/* remove downloaded package */
-copy($base_dir.'/pagoda/wordpress/*',$base_dir.'/');
-unlink($dst);
-
 
 function format_size($size=0) {
 	if($size < 1024){
