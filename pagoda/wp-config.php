@@ -80,6 +80,9 @@ define('WPLANG', '');
  */
 define('WP_DEBUG', false);
 
+/* fix for R/O file-system */
+define('DISALLOW_FILE_MODS',true);
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
